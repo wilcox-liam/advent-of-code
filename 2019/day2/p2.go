@@ -53,13 +53,8 @@ func set_initial_state(intcode []int, noun int, verb int) {
 }
 
 func step_intcodes(intcode []int) {
-	intcode_ops := len(intcode) / 3
-	op_count := 0
-	fmt.Println("Number of Operations expected:", intcode_ops)
-
 	for i := 0; i < len(intcode); i++ {	
 		opcode := intcode[i]
-		op_count++
 		if opcode == 1 {
 			intcode[intcode[i+3]] = intcode[intcode[i+1]] + intcode[intcode[i+2]]
 			i += 3
@@ -72,6 +67,5 @@ func step_intcodes(intcode []int) {
 			os.Exit(1)
 		}
 	}
-	fmt.Println("Operations stepped:", op_count)
 	return
 }

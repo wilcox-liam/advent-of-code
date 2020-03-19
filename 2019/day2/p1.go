@@ -16,7 +16,6 @@ func check(e error) {
 
 func main() {
 	var intcodes []int
-	//var intcodes_raw []int
 
 	dat, err := ioutil.ReadFile("input.txt")
 	check(err)
@@ -31,9 +30,6 @@ func main() {
 		}
 	}
 
-
-	//copy(intcodes_raw, intcodes)
-
 	set_initial_state(intcodes)
 	step_intcodes(intcodes)
 
@@ -46,14 +42,8 @@ func set_initial_state(intcode []int) {
 }
 
 func step_intcodes(intcode []int) {
-	fmt.Println(intcode)
-	intcode_ops := len(intcode) / 3
-	op_count := 0
-	fmt.Println("Number of Operations expected:", intcode_ops)
-
 	for i := 0; i < len(intcode); i++ {	
 		opcode := intcode[i]
-		op_count++
 		if opcode == 1 {
 			intcode[intcode[i+3]] = intcode[intcode[i+1]] + intcode[intcode[i+2]]
 			i += 3
@@ -65,8 +55,6 @@ func step_intcodes(intcode []int) {
 		} else {
 			os.Exit(1)
 		}
-		//fmt.Println(intcode)
 	}
-	fmt.Println("Operations stepped:", op_count)
 	return
 }

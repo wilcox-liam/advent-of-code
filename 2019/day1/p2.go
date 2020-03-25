@@ -38,7 +38,7 @@ func calculate_fuel_requirement(mass int) int {
 	var fuel int
 
 	fuel = (mass / 3) - 2
-	if fuel < 0 {
+	if fuel <= 0 {
 		return 0
 	} else {
 		fuel += calculate_fuel_requirement(fuel)

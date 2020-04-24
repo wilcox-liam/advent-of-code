@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
-	"os"
 )
 
 func check(e error) {
@@ -30,15 +30,15 @@ func main() {
 		}
 	}
 
-	for noun := 0; noun <= 99; noun++ {	
-		for verb := 0; verb <= 99 ; verb++ {			
+	for noun := 0; noun <= 99; noun++ {
+		for verb := 0; verb <= 99; verb++ {
 			intcodes_trial := make([]int, len(intcodes))
 			copy(intcodes_trial, intcodes)
 			set_initial_state(intcodes_trial, noun, verb)
 			step_intcodes(intcodes_trial)
 
 			if intcodes_trial[0] == 19690720 {
-				fmt.Println("Suceess:", 100 * noun + verb)
+				fmt.Println("Suceess:", 100*noun+verb)
 				os.Exit(0)
 			}
 		}
@@ -53,7 +53,7 @@ func set_initial_state(intcode []int, noun int, verb int) {
 }
 
 func step_intcodes(intcode []int) {
-	for i := 0; i < len(intcode); i++ {	
+	for i := 0; i < len(intcode); i++ {
 		opcode := intcode[i]
 		if opcode == 1 {
 			intcode[intcode[i+3]] = intcode[intcode[i+1]] + intcode[intcode[i+2]]

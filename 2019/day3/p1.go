@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 type Coordinate struct {
-  X, Y int
+	X, Y int
 }
 
 func check(e error) {
@@ -21,7 +21,7 @@ func check(e error) {
 
 func main() {
 	var lines [][]Coordinate
-	var origin = Coordinate{0,0}
+	var origin = Coordinate{0, 0}
 	var smallest_distance = 0
 
 	file, err := os.Open("input.txt")
@@ -35,12 +35,12 @@ func main() {
 		input := scanner.Text()
 		instructions := strings.Split(input, ",")
 		line := make([]Coordinate, 0)
-			for _, instruction := range instructions {
-				target := instruction_to_coord(origin, instruction)
-				line = append(line, calculate_points_between_coords(origin, target)...)
-				line = append(line, target)					
-				origin = target
-			}
+		for _, instruction := range instructions {
+			target := instruction_to_coord(origin, instruction)
+			line = append(line, calculate_points_between_coords(origin, target)...)
+			line = append(line, target)
+			origin = target
+		}
 		lines = append(lines, line)
 		origin.X = 0
 		origin.Y = 0
@@ -51,7 +51,7 @@ func main() {
 	}
 
 	if len(lines) < 2 {
-		log.Fatal("Only 1 Line!") 
+		log.Fatal("Only 1 Line!")
 	}
 
 	fmt.Println("Line 1:", len(lines[0]))
@@ -60,10 +60,10 @@ func main() {
 	//Compares every point in every line to every point in every other line.
 	for k := 0; k < len(lines[0]); k++ {
 		for l := 0; l < len(lines[1]); l++ {
-			if (lines[0][k] == lines[1][l]) {				
+			if lines[0][k] == lines[1][l] {
 				distance := calculate_manhattan_distance(lines[0][k])
 				fmt.Println(lines[0][k])
-				if (distance < smallest_distance || smallest_distance == 0) {
+				if distance < smallest_distance || smallest_distance == 0 {
 					smallest_distance = distance
 
 				}
@@ -90,42 +90,42 @@ func calculate_manhattan_distance(point Coordinate) int {
 
 //Converts a contextual direction (Up, Down, Left, Right), steps it and returns the coordinate at the end
 func instruction_to_coord(origin Coordinate, instruction string) Coordinate {
-	direction :=  instruction[0:1]
-	steps, err :=  strconv.Atoi(string([]byte(instruction[1:])))
+	direction := instruction[0:1]
+	steps, err := strconv.Atoi(string([]byte(instruction[1:])))
 	check(err)
 
 	var target = Coordinate{origin.X, origin.Y}
 
-	 if direction == "U" {
-	 	target.Y += steps
-	 } else if direction == "R" {
-	 	target.X += steps
-	 } else if direction == "D" {
-	 	target.Y -= steps
-	 } else if direction == "L" {
-	 	target.X -= steps
-	 } else {
+	if direction == "U" {
+		target.Y += steps
+	} else if direction == "R" {
+		target.X += steps
+	} else if direction == "D" {
+		target.Y -= steps
+	} else if direction == "L" {
+		target.X -= steps
+	} else {
 		log.Fatal(err)
-	 }
+	}
 
-	 return target
+	return target
 }
 
 //Given 2 coordinates, calculates every point between them and returns them as a slice.
 //Coordinates must have the same x axis or y axis
 func calculate_points_between_coords(origin Coordinate, target Coordinate) []Coordinate {
 	if origin.X == target.X {
-		if (origin.Y > target.Y) {
+		if origin.Y > target.Y {
 			return calculate_points_y_axis(target.Y, origin.Y, origin.X)
 		} else {
 			return calculate_points_y_axis(origin.Y, target.Y, origin.X)
-		}		
+		}
 	} else if origin.Y == target.Y {
-		if (origin.X > target.X) {
+		if origin.X > target.X {
 			return calculate_points_x_axis(target.X, origin.X, origin.Y)
 		} else {
 			return calculate_points_x_axis(origin.X, target.X, origin.Y)
-		}		
+		}
 	} else {
 		log.Fatal()
 	}

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"io/ioutil"
 	"fmt"
-	"strings"
+	"io/ioutil"
 	"strconv"
+	"strings"
 )
 
 func check(e error) {
@@ -28,11 +28,11 @@ func main() {
 
 	fmt.Println("LOW:", password_low, "HIGH:", password_high)
 	for ; password_low <= password_high; password_low++ {
-		if (is_six_digits(password_low) && contains_number_pair(password_low) && numbers_increase(password_low)) {
+		if is_six_digits(password_low) && contains_number_pair(password_low) && numbers_increase(password_low) {
 			fmt.Println(password_low)
-			password_count++		
+			password_count++
 		}
-	} 
+	}
 	fmt.Println(password_count)
 }
 
@@ -55,13 +55,13 @@ func contains_number_pair(password int) bool {
 
 	//Start at 1 and compare to previous
 	for i := 1; i < len(pass); i++ {
-		if pass[i] == pass[i-1] {	
+		if pass[i] == pass[i-1] {
 			match_count += 1
 			if pair {
 				pair = false
 			} else {
 				if match_count == 1 {
-					pair = true	
+					pair = true
 				}
 			}
 		} else {
@@ -78,7 +78,7 @@ func contains_number_pair(password int) bool {
 func numbers_increase(password int) bool {
 	pass := strings.Split(strconv.Itoa(password), "")
 
-	//Start at 1 and compare to previous, end 
+	//Start at 1 and compare to previous, end
 	for i := 1; i < len(pass); i++ {
 		if pass[i] < pass[i-1] {
 			return false

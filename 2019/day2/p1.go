@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
-	"os"
 )
 
 func check(e error) {
@@ -42,7 +42,7 @@ func set_initial_state(intcode []int) {
 }
 
 func step_intcodes(intcode []int) {
-	for i := 0; i < len(intcode); i++ {	
+	for i := 0; i < len(intcode); i++ {
 		opcode := intcode[i]
 		if opcode == 1 {
 			intcode[intcode[i+3]] = intcode[intcode[i+1]] + intcode[intcode[i+2]]

@@ -54,7 +54,7 @@ func intcodeRead(intcode []int, pos int) []int {
 	input, _ := reader.ReadString('\n')
 	input = strings.TrimSpace(input)
 	intInput, _ := strconv.Atoi(input)
-	intcode[intcode[pos + 1]] = intInput
+	intcode[intcode[pos+1]] = intInput
 	return intcode
 }
 
@@ -66,7 +66,7 @@ func step_intcodes(intcode []int) {
 		instruction := getInstruction(opcodeString)
 
 		if instruction == 99 {
-			break;
+			break
 		} else {
 			parm1, parm2, parm3 = getParms(intcode, opcodeString, instruction, i)
 		}

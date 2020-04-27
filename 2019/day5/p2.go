@@ -56,7 +56,7 @@ func intcodeRead(intcode []int, pos int) []int {
 	input, _ := reader.ReadString('\n')
 	input = strings.TrimSpace(input)
 	intInput, _ := strconv.Atoi(input)
-	intcode[intcode[pos + 1]] = intInput
+	intcode[intcode[pos+1]] = intInput
 	return intcode
 }
 
@@ -69,16 +69,16 @@ func intcodeJumpIfTrue(pos, parm1, parm2 int) int {
 
 func intcodeJumpIfFalse(pos, parm1, parm2 int) int {
 	if parm1 == 0 {
-		return parm2 - 1	
+		return parm2 - 1
 	}
 	return pos + 2
 }
 
 func intcodeLessThan(intcode []int, parm1, parm2, parm3 int) []int {
 	if parm1 < parm2 {
-		intcode[parm3] = 1		
+		intcode[parm3] = 1
 	} else {
-		intcode[parm3] = 0	
+		intcode[parm3] = 0
 	}
 	return intcode
 }
@@ -87,7 +87,7 @@ func intcodeEquals(intcode []int, parm1, parm2, parm3 int) []int {
 	if parm1 == parm2 {
 		intcode[parm3] = 1
 	} else {
-		intcode[parm3] = 0		
+		intcode[parm3] = 0
 	}
 	return intcode
 }
@@ -101,7 +101,7 @@ func step_intcodes(intcode []int) {
 		instruction := getInstruction(opcodeString)
 
 		if instruction == 99 {
-			break;
+			break
 		} else {
 			parm1, parm2, parm3 = getParms(intcode, opcodeString, instruction, i)
 		}
@@ -125,12 +125,12 @@ func step_intcodes(intcode []int) {
 		case 5:
 			i = intcodeJumpIfTrue(i, parm1, parm2)
 		case 6:
-			i = intcodeJumpIfFalse(i, parm1, parm2)	
+			i = intcodeJumpIfFalse(i, parm1, parm2)
 		case 7:
 			intcode = intcodeLessThan(intcode, parm1, parm2, parm3)
-			i+= 3
+			i += 3
 		case 8:
-			intcode = intcodeEquals(intcode, parm1, parm2, parm3)	
+			intcode = intcodeEquals(intcode, parm1, parm2, parm3)
 			i += 3
 		default:
 			fmt.Println("Invalid intcode")
@@ -168,7 +168,7 @@ func getParms(intcode []int, opcode string, instruction int, i int) (int, int, i
 	default:
 
 	}
-	if instruction == 1 || instruction == 2  || instruction >= 5 {
+	if instruction == 1 || instruction == 2 || instruction >= 5 {
 		switch parm2Mode {
 		case 0:
 			parm2 = intcode[intcode[i+2]]
@@ -178,10 +178,10 @@ func getParms(intcode []int, opcode string, instruction int, i int) (int, int, i
 			os.Exit(1)
 		}
 	}
-	if instruction == 1 || instruction == 2  || instruction >= 7  {
+	if instruction == 1 || instruction == 2 || instruction >= 7 {
 		switch parm3Mode {
 		case 0:
-			parm3 = intcode[i+3] 
+			parm3 = intcode[i+3]
 		default:
 			os.Exit(1)
 		}
